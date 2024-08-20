@@ -3,7 +3,6 @@ using System.IO;
 using System.Reflection;
 using BepInEx;
 using UnityEngine;
-using Utilla;
 using TMPro;
 using UnityEngine.UI;
 using PlayFab.ClientModels;
@@ -15,8 +14,6 @@ using GorillaCookieClicker.Buttons;
 
 namespace GorillaCookieClicker
 {
-	[ModdedGamemode]
-	[BepInDependency("org.legoandmars.gorillatag.utilla", "1.5.0")]
 	[BepInPlugin(PluginInfo.GUID, PluginInfo.Name, PluginInfo.Version)]
 	public class Plugin : BaseUnityPlugin
 	{
@@ -47,22 +44,7 @@ namespace GorillaCookieClicker
 
         void Start()
 		{
-			Utilla.Events.GameInitialized += OnGameInitialized;
-		}
-
-		void OnEnable()
-		{
-			HarmonyPatches.ApplyHarmonyPatches();
-		}
-
-		void OnDisable()
-		{
-			HarmonyPatches.RemoveHarmonyPatches();
-		}
-
-		void OnGameInitialized(object sender, EventArgs e)
-		{
-            instance = this;
+			instance = this;
             bundle = LoadAssetBundle("GorillaCookieClicker.AssetBundles." + assetBundleName);
             GorillaCookieClicker = Instantiate(bundle.LoadAsset<GameObject>(parentName));
             GorillaCookieClicker.transform.position = new Vector3(-67.2225f, 11.57f, -82.611f);
@@ -154,7 +136,7 @@ namespace GorillaCookieClicker
             BackPage1.AddComponent<PageButton>();
             BackPage1.GetComponent<PageButton>().PageToGo = GameObject.Find("GorillaCookieClicker(Clone)/parent/Page1");
             BackPage1.GetComponent<PageButton>().PageToLeave = GameObject.Find("GorillaCookieClicker(Clone)/parent/Page2");
-        }
+		}
 
 
         public AssetBundle LoadAssetBundle(string path)
